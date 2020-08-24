@@ -30,7 +30,16 @@ data = b'YELLOW SUBMARINE'
 result = pad(data,block_size)
 print(str(result)[2:-1]) #YELLOW SUBMARINE\x04\x04\x04\x04
 ```
+<p>Atau Cara manual</p>
 
+```python
+text = "Eno Marozi"
+block = 13
+padding = block - len(text)
+for i in range(padding):
+    text += "\\x0"+str(padding)
+print(text) #Eno Marozi\x03\x03\x03
+```
 </b><h3>Result</h3></b>
 <pre>
 YELLOW SUBMARINE\x04\x04\x04\x04
