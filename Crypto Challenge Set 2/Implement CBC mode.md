@@ -26,13 +26,13 @@ tetapi ciphertext block pertama juga menjadi IV(Initial Vector) untuk memperoleh
 import base64
 from Crypto.Cipher import AES
 
-file = open("10.txt").read()
+file = open("10.txt","rb").read()
 decode = base64.b64decode(file)
-IV = b"0000000000000000"
-key = b"YELLOW SUBMARINE"
-AES_Decryption = AES.new(key,AES.MODE_CBC,IV)
-decrypt = AES_Decryption.decrypt(decode)
-print(str(decrypt)[2:-1])
+IV = ("0"*16).encode('utf8')
+key = "YELLOW SUBMARINE".encode('utf8')
+AES_Decryption = AES.new(key, AES.MODE_CBC, IV)
+decrypt = AES_Decryption.decrypt(decode).decode('ascii')
+print(decrypt)
 ```
 <p>Dari program diatas kita sudah mendapatkan plaintext dari ciphertext, tetapi kita tidak boleh menggunakan cheat, yang artinya cara simple seperti program diatas</p>
 <p>Dan disini kita akan mencoba mengikuti proses decryption yang sudah saya jelaskan diatas, dengan bantuan looping program untuk setiap 16 bytes block chipertext, seperti pada program dibawah</p>
@@ -51,7 +51,7 @@ for i in range(len(result)):
     AES_Decryption = AES.new(key,AES.MODE_CBC,IV)
     decrypt = AES_Decryption.decrypt(bytes.fromhex(result[i]))
     IV = bytes.fromhex(result[i])
-    print(str(decrypt)[2:-1]) 
+    print(decrypt.decode('ascii')) 
 ```
 <p>Dan kita mendapatkan padding sepanjang 4 bytes diakhir plaintext</p>
 </b><h3>Result</h3></b>
